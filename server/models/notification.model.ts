@@ -24,12 +24,11 @@ const notificationSchema = new Schema<INotification>(
     },
     userId: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
 );
 
-const notificationModel: Model<INotification> = mongoose.model("Order", notificationSchema);
+const notificationModel: Model<INotification> = mongoose.model("Notification", notificationSchema);
 
 export default notificationModel;
