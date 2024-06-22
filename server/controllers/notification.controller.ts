@@ -1,15 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import CatchAsyncError from "../middleware/catchAsyncError";
 import ErrorHandler from "../utils/errorHandler";
-import ejs from "ejs";
-import path from "path";
-import sendMail from "../utils/sendMail";
-import { IOrder } from "../models/order.model";
-import userModel from "../models/user.model";
-import courseModel from "../models/course.model";
-import { newOrder } from "../services/order.service";
 import notificationModel from "../models/notification.model";
-
+import cron from "node-cron";
 // get all notifications -- Only for admin
 export const getAllNotifications = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -53,3 +46,11 @@ export const updateNotifications = CatchAsyncError(
     }
   }
 );
+
+// delete read notifications every 30 days
+
+cron.schedule("0 0 0 * * *", async () => {
+  const thirtydaysAgo = new Date(Date.now() - 30 * 24 * 60 * 1000);
+  await notificationModel.deleteMany({ status: "read", createdAt: { $gt: thirtydaysAgo } });
+  console.log("Deleted read notifications");
+});
