@@ -8,7 +8,7 @@ import path from "path";
 import sendMail from "../utils/sendMail";
 import { accessTokenOptions, refreshTokenOptions, sendToken } from "../utils/jwt";
 import { redis } from "../utils/redis";
-import { getUserByID } from "../services/user.service";
+import { getAllUsersService, getUserByID } from "../services/user.service";
 import cloudinary from "cloudinary";
 require("dotenv").config();
 // registerUser
@@ -378,6 +378,18 @@ export const updateAvatar = CatchAsyncError(
         success: true,
         user,
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// Get all users --  admin only
+
+export const getAllUsers = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      getAllUsersService(res);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }

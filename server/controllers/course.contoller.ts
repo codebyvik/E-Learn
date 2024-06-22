@@ -3,7 +3,7 @@ import courseModel from "../models/course.model";
 import cloudinary from "cloudinary";
 import CatchAsyncError from "../middleware/catchAsyncError";
 import ErrorHandler from "../utils/errorHandler";
-import { createCourse } from "../services/course.service";
+import { createCourse, getAllCoursesService } from "../services/course.service";
 import { redis } from "../utils/redis";
 import mongoose from "mongoose";
 import ejs from "ejs";
@@ -396,6 +396,18 @@ export const addReplyToReview = CatchAsyncError(
       });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
+    }
+  }
+);
+
+// Get all courses --  admin only
+
+export const getAllCoursesAdmin = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      getAllCoursesService(res);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
     }
   }
 );
