@@ -87,6 +87,23 @@ web_modules/
 # Next.js build output
 .next
 out
+# vercel
+.vercel
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
 
 # Nuxt.js build / generate output
 .nuxt
