@@ -2,6 +2,7 @@
 import React, { FC, useState } from "react";
 import Header from "./utils/header";
 import Head from "./components/Head";
+import Hero from "./components/routes/Hero";
 
 interface Props {}
 
@@ -10,14 +11,15 @@ const Page: FC<Props> = (props) => {
   const [activeItem, setActiveItem] = useState(0);
 
   return (
-    <div>
+    <>
       <Header
         title="E-Learn"
         description="E-Learning platform for students to learn and get help"
         keywords="Programming , MERN , REDUX ,Machine Learning"
       />
       <Head open={open} setOpen={setOpen} activeItem={activeItem} />
-    </div>
+      <Hero />
+    </>
   );
 };
 
