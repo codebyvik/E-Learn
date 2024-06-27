@@ -4,6 +4,10 @@ import "./globals.css";
 import { ThemeProvider } from "./utils/theme-provider";
 import { Providers } from "./provider";
 import { SessionProvider } from "next-auth/react";
+import React from "react";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import Loader from "./components/Loader/Loader";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -28,7 +32,7 @@ export default function RootLayout({
         <Providers>
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              {children}
+              <CustomElement>{children}</CustomElement>
             </ThemeProvider>
           </SessionProvider>
         </Providers>
@@ -36,3 +40,8 @@ export default function RootLayout({
     </html>
   );
 }
+
+const CustomElement: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isLoading } = useLoadUserQuery({});
+  return <>{isLoading ? <Loader /> : <>{children}</>}</>;
+};
