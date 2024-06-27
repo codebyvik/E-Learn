@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import avatar from "../../public/assets/avatar.png";
 import { useSession } from "next-auth/react";
-import { useSocialAuthMutation } from "@/redux/features/auth/auth.api";
+import { useLogoutQuery, useSocialAuthMutation } from "@/redux/features/auth/auth.api";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -30,6 +30,14 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
   const { data } = useSession();
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
 
+  const [logout, setLogout] = useState(false);
+  const [courses, setCourses] = useState([]);
+  //    const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
+
+  const {} = useLogoutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
+
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -41,8 +49,14 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
       }
     }
 
-    if (isSuccess) {
-      toast.success("Login successful");
+    if (data === null) {
+      if (isSuccess) {
+        toast.success("Login successful");
+      }
+    }
+
+    if (data === null) {
+      setLogout(true);
     }
   }, [data, isSuccess]);
 
@@ -96,9 +110,15 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
                 <>
                   <Link href={"/profile"}>
                     <Image
-                      src={user.avatar ? user.avatar : avatar}
+                      src={user.avatar ? user.avatar.url : avatar}
                       alt=""
-                      className="w-[30px] h-[30px] rounded-full"
+                      width={30}
+                      height={30}
+                      className={`${
+                        activeItem === 5
+                          ? "hidden 800px:blockdark:border-[#37a39a] border-2 border-[crimson]"
+                          : " "
+                      }hidden 800px:block rounded-full w-[30px] h-[30px]`}
                     />
                   </Link>
                 </>
@@ -125,9 +145,11 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
                 <>
                   <Link href={"/profile"}>
                     <Image
-                      src={user.avatar ? user.avatar : avatar}
+                      src={user.avatar ? user.avatar.url : avatar}
                       alt=""
-                      className="w-[30px] h-[30px] rounded-full"
+                      width={30}
+                      height={30}
+                      className="w-[30px] h-[30px] ml-5 my-2 rounded-full"
                     />
                   </Link>
                 </>
