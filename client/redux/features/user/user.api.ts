@@ -1,4 +1,3 @@
-import { Update } from "@mui/icons-material";
 import { apiSlice } from "../api/apiSlice";
 
 export const userApi = apiSlice.injectEndpoints({
