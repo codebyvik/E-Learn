@@ -53,7 +53,7 @@ courseRouter.get(
   getAllCoursesAdmin
 );
 courseRouter.delete(
-  "/delete-course",
+  "/delete-course/:id",
   updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
