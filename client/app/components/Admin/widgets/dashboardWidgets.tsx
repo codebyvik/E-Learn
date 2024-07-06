@@ -8,6 +8,7 @@ import {
   useGetOrdersAnalyticsQuery,
   useGetUsersAnalyticsQuery,
 } from "@/redux/features/analytics/analytics.api";
+import AllInvoices from "../orders/all_Invoices";
 // import AllInvoices from "../Order/AllInvoices";
 
 type Props = {
@@ -159,7 +160,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
           <h5 className="dark:text-[#fff] text-black text-[20px] font-[400] font-Poppins pb-3">
             Recent Transactions
           </h5>
-          {/* <AllInvoices isDashboard={true} /> */}
+          <AllInvoices isDashboard={true} />
         </div>
       </div>
     </div>
