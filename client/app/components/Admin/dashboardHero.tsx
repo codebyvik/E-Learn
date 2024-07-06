@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DashboardHeader from "./DashboardHeader";
+import DashboardWidgets from "./widgets/dashboardWidgets";
 
 type Props = {
   isDashboard?: boolean;
@@ -11,7 +12,7 @@ const DashboardHero = ({ isDashboard }: Props) => {
   return (
     <div>
       <DashboardHeader open={open} setOpen={setOpen} />
-      {/* {isDashboard && <DashboardWidgets open={open} />} */}
+      {isDashboard && <DashboardWidgets open={open} />}
     </div>
   );
 };
