@@ -53,7 +53,7 @@ const CourseContent: FC<Props> = ({
       item.videoUrl === "" ||
       item.links[0].title === "" ||
       item.links[0].url === "" ||
-      item.videoLength === ""
+      item.videoDuration === ""
     ) {
       toast.error("Please fill all the fields first!");
     } else {
@@ -72,7 +72,7 @@ const CourseContent: FC<Props> = ({
         title: "",
         description: "",
         videoSection: newVideoSection,
-        videoLength: "",
+        videoDuration: "",
         links: [{ title: "", url: "" }],
       };
 
@@ -95,7 +95,7 @@ const CourseContent: FC<Props> = ({
         videoUrl: "",
         title: "",
         description: "",
-        videoLength: "",
+        videoDuration: "",
         videoSection: `Untitled Section ${activeSection}`,
         links: [{ title: "", url: "" }],
       };
@@ -231,10 +231,10 @@ const CourseContent: FC<Props> = ({
                       type="number"
                       placeholder="20"
                       className={`${Styles.input}`}
-                      value={item.videoLength}
+                      value={item.videoDuration}
                       onChange={(e) => {
                         const updatedData = [...courseContentData];
-                        updatedData[index].videoLength = e.target.value;
+                        updatedData[index].videoDuration = e.target.value;
                         setCourseContentData(updatedData);
                       }}
                     />

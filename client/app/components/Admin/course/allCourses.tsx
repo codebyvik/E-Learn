@@ -10,7 +10,10 @@ import { format } from "timeago.js";
 import { Styles } from "../../../styles/style";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
-import { useGetAllCoursesQuery } from "@/redux/features/courses/course.api";
+import {
+  useDeleteCourseMutation,
+  useGetAllCoursesQuery,
+} from "../../../../redux/features/courses/course.api";
 
 type Props = {};
 
@@ -22,7 +25,7 @@ const AllCourses = (props: Props) => {
     {},
     { refetchOnMountOrArgChange: true }
   );
-  //   const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
+  const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course Title", flex: 1 },
@@ -79,25 +82,25 @@ const AllCourses = (props: Props) => {
       });
   }
 
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       setOpen(false);
-  //       refetch();
-  //       toast.success("Course Deleted Successfully");
-  //     }
-  //     if (error) {
-  //       if ("data" in error) {
-  //         const errorMessage = error as any;
-  //         toast.error(errorMessage.data.message);
-  //       }
-  //     }
-  //   }, [isSuccess, error, refetch]);
+  useEffect(() => {
+    if (isSuccess) {
+      setOpen(false);
+      refetch();
+      toast.success("Course Deleted Successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error, refetch]);
 
   const handleDelete = async () => {
     const id = courseId;
     console.log("delete");
 
-    // await deleteCourse(id);
+    await deleteCourse(id);
   };
 
   return (

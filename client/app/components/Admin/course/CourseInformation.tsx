@@ -117,9 +117,9 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
             <input
               type="number"
               name=""
-              value={courseInfo.estimatedPrice}
+              value={courseInfo.discountedPrice}
               onChange={(e: any) =>
-                setCourseInfo({ ...courseInfo, estimatedPrice: e.target.value })
+                setCourseInfo({ ...courseInfo, discountedPrice: e.target.value })
               }
               id="price"
               placeholder="79"
@@ -206,7 +206,6 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
             id="file"
             className="hidden"
             onChange={handleFileChange}
-            required
           />
           <label
             htmlFor="file"
