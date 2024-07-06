@@ -42,7 +42,7 @@ userRouter.put(
   updateUserRole
 );
 userRouter.delete(
-  "/delete-user",
+  "/delete-user/:id",
   updateAccessToken,
   isAuthenticated,
   authorizeRoles("admin"),
