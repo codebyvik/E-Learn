@@ -4,6 +4,10 @@ import Header from "./utils/header";
 import Head from "./components/Head";
 import Hero from "./components/routes/Hero";
 import { Toaster } from "react-hot-toast";
+import Courses from "./components/routes/courses";
+import Reviews from "./components/routes/reviews";
+import FAQ from "./components/FAQ/FAQ";
+import Footer from "./components/footer";
 
 interface Props {}
 
@@ -28,6 +32,10 @@ const Page: FC<Props> = (props) => {
       />
       <Toaster position="top-center" reverseOrder={false} />
       <Hero />
+      <Courses />
+      <Reviews />
+      <FAQ />
+      <Footer />
     </>
   );
 };
