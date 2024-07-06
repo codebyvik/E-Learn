@@ -1,5 +1,5 @@
+import { useGetHeroDataQuery } from "@/redux/features/layout/layout.api";
 import { Styles } from "../../../styles/style";
-// import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import React, { FC, useEffect, useState } from "react";
 
 type Props = {
@@ -11,14 +11,14 @@ type Props = {
 
 const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setActive }) => {
   const [dragging, setDragging] = useState(false);
-  //   const { data } = useGetHeroDataQuery("Categories", {});
+  const { data } = useGetHeroDataQuery("Categories", {});
   const [categories, setCategories] = useState([]);
 
-  //   useEffect(() => {
-  //     if (data) {
-  //       setCategories(data.layout?.categories);
-  //     }
-  //   }, [data]);
+  useEffect(() => {
+    if (data) {
+      setCategories(data.layout?.categories);
+    }
+  }, [data]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -152,7 +152,7 @@ const CourseInformation: FC<Props> = ({ courseInfo, setCourseInfo, active, setAc
               name=""
               id=""
               className={`${Styles.input}`}
-              value={courseInfo.category}
+              value={courseInfo.categories}
               onChange={(e: any) => setCourseInfo({ ...courseInfo, categories: e.target.value })}
             >
               <option className="dark:bg-[#000] text-[#fff]" value="">
