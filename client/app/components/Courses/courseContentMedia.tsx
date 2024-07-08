@@ -1,6 +1,5 @@
 import { Styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/coursePlayer";
-
 import Image from "next/image";
 import { format } from "timeago.js";
 import React, { useEffect, useState } from "react";
@@ -16,9 +15,9 @@ import {
   useAddReviewInCourseMutation,
   useGetCourseDetailsQuery,
 } from "@/redux/features/courses/course.api";
-// import socketIO from "socket.io-client";
-// const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
-// const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
+const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
   data: any;
@@ -78,22 +77,22 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
     if (isSuccess) {
       setQuestion("");
       refetch();
-      // socketId.emit("notification", {
-      //   title: `New Question Received`,
-      //   message: `You have a new question in ${data[activeVideo].title}`,
-      //   userId: user._id,
-      // });
+      socketId.emit("notification", {
+        title: `New Question Received`,
+        message: `You have a new question in ${data[activeVideo].title}`,
+        userId: user._id,
+      });
     }
     if (answerSuccess) {
       setAnswer("");
       refetch();
-      // if (user.role !== "admin") {
-      //   socketId.emit("notification", {
-      //     title: `New Reply Received`,
-      //     message: `You have a new question in ${data[activeVideo].title}`,
-      //     userId: user._id,
-      //   });
-      // }
+      if (user.role !== "admin") {
+        socketId.emit("notification", {
+          title: `New Reply Received`,
+          message: `You have a new question in ${data[activeVideo].title}`,
+          userId: user._id,
+        });
+      }
     }
     if (error) {
       if ("data" in error) {
@@ -111,11 +110,11 @@ const CourseContentMedia = ({ data, id, activeVideo, setActiveVideo, user, refet
       setReview("");
       setRating(1);
       courseRefetch();
-      // socketId.emit("notification", {
-      //   title: `New Question Received`,
-      //   message: `You have a new question in ${data[activeVideo].title}`,
-      //   userId: user._id,
-      // });
+      socketId.emit("notification", {
+        title: `New Review Received`,
+        message: `You have a new review in ${course.name}`,
+        userId: user._id,
+      });
     }
     if (reviewError) {
       if ("data" in reviewError) {

@@ -4,9 +4,12 @@ import "./globals.css";
 import { ThemeProvider } from "./utils/theme-provider";
 import { Providers } from "./provider";
 import { SessionProvider } from "next-auth/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./components/Loader/Loader";
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "";
+const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,5 +46,9 @@ export default function RootLayout({
 
 const CustomElement: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isLoading } = useLoadUserQuery({});
+  useEffect(() => {
+    socketId.on("connection", () => {});
+  }, []);
+
   return <>{isLoading ? <Loader /> : <>{children}</>}</>;
 };
