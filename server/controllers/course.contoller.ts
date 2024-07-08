@@ -215,6 +215,8 @@ export const addQuestion = CatchAsyncError(
 
       await course?.save();
 
+      await redis.set(courseId, JSON.stringify(course));
+
       res.status(200).json({
         success: true,
         course,
@@ -295,6 +297,8 @@ export const addAnswer = CatchAsyncError(
         }
       }
 
+      await redis.set(courseId, JSON.stringify(course));
+
       res.status(200).json({
         success: true,
         course,
@@ -353,6 +357,7 @@ export const addReview = CatchAsyncError(
         title: "New Review Received",
         message: `${req.user?.name} has given a review in ${course?.name}`,
       };
+      await redis.set(courseId, JSON.stringify(course));
 
       res.status(200).json({
         success: true,
@@ -399,7 +404,7 @@ export const addReplyToReview = CatchAsyncError(
       review.commentReplies?.push(replyData);
 
       await course.save();
-
+      await redis.set(courseId, JSON.stringify(course));
       res.status(200).json({
         success: true,
         course,
