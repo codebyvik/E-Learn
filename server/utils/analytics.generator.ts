@@ -10,7 +10,7 @@ export async function generateOneYearData<T extends Document>(
 ): Promise<{ lastOneYearData: MonthData[] }> {
   const lastOneYearData: MonthData[] = [];
   const currentDate = new Date();
-  //   currentDate.setDate(currentDate.getDate() + 1);
+  currentDate.setDate(currentDate.getDate() + 1);
 
   for (let i = 11; i >= 0; i--) {
     const endDate = new Date(
@@ -30,9 +30,11 @@ export async function generateOneYearData<T extends Document>(
     const count = await model.countDocuments({
       createdAt: {
         $gte: startDate,
-        $lte: endDate,
+        $lt: endDate,
       },
     });
+
+    console.log({ startDate, endDate, count });
 
     lastOneYearData.push({
       month: monthYear,
