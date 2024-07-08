@@ -34,8 +34,6 @@ export async function generateOneYearData<T extends Document>(
       },
     });
 
-    console.log({ startDate, endDate, count });
-
     lastOneYearData.push({
       month: monthYear,
       count,
