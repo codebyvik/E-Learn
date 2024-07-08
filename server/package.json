@@ -2,10 +2,17 @@
   "name": "server",
   "version": "1.0.0",
   "description": "E Learning platform",
-  "main": "server.js",
+  "main": "build/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "start": "node build/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false",
+    "build": "tsc"
   },
   "keywords": [
     "LMS",
