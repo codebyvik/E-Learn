@@ -39,6 +39,8 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
     skip: !logout ? true : false,
   });
 
+  console.log("userdata", userData);
+
   useEffect(() => {
     if (!isLoading) {
       if (!userData) {
@@ -112,7 +114,7 @@ const Head: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
                 <>
                   <Link href={"/profile"}>
                     <Image
-                      src={userData.avatar ? userData.avatar.url : avatar}
+                      src={userData?.user?.avatar ? userData.user.avatar.url : avatar}
                       alt=""
                       width={30}
                       height={30}
