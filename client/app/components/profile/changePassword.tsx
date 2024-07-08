@@ -13,8 +13,6 @@ const ChangePassword: FC<Props> = (props) => {
 
   const passwordChangeHandler = async (e: any) => {
     e.preventDefault();
-    console.log("hey");
-
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match");
     } else {
