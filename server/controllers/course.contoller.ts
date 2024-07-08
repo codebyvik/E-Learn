@@ -353,10 +353,13 @@ export const addReview = CatchAsyncError(
       await course?.save();
 
       // create notification
-      const notification = {
+
+      await notificationModel.create({
+        user: req.user?._id,
         title: "New Review Received",
         message: `${req.user?.name} has given a review in ${course?.name}`,
-      };
+      });
+
       await redis.set(courseId, JSON.stringify(course));
 
       res.status(200).json({
