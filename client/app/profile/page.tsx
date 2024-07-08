@@ -6,6 +6,7 @@ import Head from "../components/Head";
 import Profile from "../components/profile/profile";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
+import Footer from "../components/footer";
 type Props = {};
 
 const Page: FC<Props> = (props) => {
@@ -15,7 +16,7 @@ const Page: FC<Props> = (props) => {
   const { user } = useSelector((state: any) => state.auth);
 
   return (
-    <div>
+    <div className="min-h-screen">
       <Protected>
         <Header
           title={`${user.name} profile - E-Learn`}
@@ -31,6 +32,7 @@ const Page: FC<Props> = (props) => {
         />
         <Toaster position="top-center" reverseOrder={false} />
         <Profile user={user} />
+        <Footer />
       </Protected>
     </div>
   );
